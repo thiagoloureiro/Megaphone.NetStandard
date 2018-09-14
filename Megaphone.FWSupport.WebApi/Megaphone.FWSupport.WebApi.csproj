@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Megaphone.Standard\Megaphone.Core.csproj" />
+    <ProjectReference Include="..\Megaphone.Core\Megaphone.Core.csproj" />
   </ItemGroup>
 
 </Project>

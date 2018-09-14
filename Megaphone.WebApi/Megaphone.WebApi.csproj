@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Megaphone.Core\Megaphone.Core.csproj" />
     <ProjectReference Include="..\Megaphone.FWSupport.WebApi\Megaphone.FWSupport.WebApi.csproj" />
-    <ProjectReference Include="..\Megaphone.Standard\Megaphone.Core.csproj" />
   </ItemGroup>
 
 </Project>
