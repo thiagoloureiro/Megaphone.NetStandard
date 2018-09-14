@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Megaphone.Core", "Megaphone.Standard\Megaphone.Core.csproj", "{0D221BE8-7183-4A80-B6AD-1DE35B1936E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{CEEFC217-52FA-49B8-8EE5-4DFD916CA29B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Megaphone.WebApi", "Megaphone.WebApi\Megaphone.WebApi.csproj", "{55DCEF48-C679-4D28-AA49-35674C73BB05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D221BE8-7183-4A80-B6AD-1DE35B1936E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D221BE8-7183-4A80-B6AD-1DE35B1936E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D221BE8-7183-4A80-B6AD-1DE35B1936E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D221BE8-7183-4A80-B6AD-1DE35B1936E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55DCEF48-C679-4D28-AA49-35674C73BB05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55DCEF48-C679-4D28-AA49-35674C73BB05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55DCEF48-C679-4D28-AA49-35674C73BB05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55DCEF48-C679-4D28-AA49-35674C73BB05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{55DCEF48-C679-4D28-AA49-35674C73BB05} = {CEEFC217-52FA-49B8-8EE5-4DFD916CA29B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38D79C61-E9EA-47D9-8284-13ED9353AE24}
+	EndGlobalSection
+EndGlobal
