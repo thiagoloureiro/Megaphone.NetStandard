@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore;
+﻿using Megaphone.Core;
+using Megaphone.Core.ClusterProviders;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using System;
 
 namespace Megaphone.WebApi
 {
@@ -7,12 +10,13 @@ namespace Megaphone.WebApi
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var uri = Cluster.Bootstrap(new WebApiProvider(), new ConsulProvider(), "values", "v1");
+            CreateWebHostBuilder(args, uri).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args, Uri uri) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://+:12345");
+                .UseUrls($"http://127.0.0.1:{uri.Port}");
     }
 }

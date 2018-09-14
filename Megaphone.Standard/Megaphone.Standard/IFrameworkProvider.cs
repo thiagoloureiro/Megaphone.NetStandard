@@ -4,6 +4,6 @@ namespace Megaphone.Core
 {
     public interface IFrameworkProvider
     {
-        Uri Start(string serviceName, string version);
+        Uri GetUri(string serviceName, string version);
     }
 }

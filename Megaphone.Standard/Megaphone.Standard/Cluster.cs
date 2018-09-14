@@ -35,19 +35,21 @@ namespace Megaphone.Core
             return _clusterProvider.KvGetAsync<T>(key);
         }
 
-        public static void Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version)
+        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version)
         {
             try
             {
                 _frameworkProvider = frameworkProvider;
-                var uri = _frameworkProvider.Start(serviceName, version);
+                var uri = _frameworkProvider.GetUri(serviceName, version);
                 var serviceId = serviceName + Guid.NewGuid();
                 _clusterProvider = clusterProvider;
                 _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, uri).Wait();
+                return uri;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                return null;
             }
         }
     }

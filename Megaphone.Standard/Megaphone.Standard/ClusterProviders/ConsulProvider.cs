@@ -12,21 +12,14 @@ namespace Megaphone.Core.ClusterProviders
         private Uri _uri;
         private string _version;
         private readonly int _consulPort = 0;
-        private readonly bool _useEbayFabio;
 
-        public ConsulProvider(int port = 0, bool useEbayFabio = false)
+        public ConsulProvider(int port = 0)
         {
             _consulPort = port;
-            _useEbayFabio = useEbayFabio;
         }
 
         public async Task<ServiceInformation[]> FindServiceInstancesAsync(string name)
         {
-            if (_useEbayFabio)
-            {
-                return new[] { new ServiceInformation("http://localhost", 9999) };
-            }
-
             var x = new ConsulRestClient();
             var res = await x.FindServiceAsync(name).ConfigureAwait(false);
 
