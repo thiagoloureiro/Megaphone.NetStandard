@@ -5,6 +5,17 @@
     <Authors>Thiago Loureiro</Authors>
     <Version>0.0.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Microservice framework with powerful service discovery using Consul</Description>
+    <PackageLicenseUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</PackageProjectUrl>
+    <PackageIconUrl>https://image.flaticon.com/icons/png/128/138/138304.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</RepositoryUrl>
+    <PackageTags>microservices dotnetcore consul</PackageTags>
+    <PackageId>Megaphone.DotnetCore</PackageId>
+    <Product>Megaphone.DotnetCore</Product>
+    <RepositoryType>GitHub</RepositoryType>
+    <Copyright>2018© Thiago Loureiro</Copyright>
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
