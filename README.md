@@ -5,8 +5,6 @@ A framework to self register services on Consul.IO, now supporting .NET Core 2.x
 
 MegaPhone is a lightweight framework to run self hosting REST services using AspnetCore Web Api ontop of a Consul. Each service will start out by allocating a free port to run on, once the service is started, it will register itself in the local cluster provider.
 
-This project was inheritate from the original Microphone with the intention to keep the development, improvement and fixes, because the actual project is unoperative and nuget packages outdated.
-
 **MegaPhone.DotnetCore**
 [![NuGet](https://buildstats.info/nuget/Megaphone.DotnetCore)](http://www.nuget.org/packages/Megaphone.DotnetCore)
 
