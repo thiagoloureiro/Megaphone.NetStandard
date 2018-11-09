@@ -9,3 +9,13 @@ MegaPhone is a lightweight framework to run self hosting REST services using Asp
 [![NuGet](https://buildstats.info/nuget/Megaphone.DotnetCore)](http://www.nuget.org/packages/Megaphone.DotnetCore)
 
 [![Build Status](https://img.shields.io/appveyor/ci/thiagoloureiro/megaphone-netstandard/master.svg)](https://ci.appveyor.com/project/thiagoloureiro/megaphone-netstandard) 
+
+```
+AppSettings Configuration:
+
+  "ConsulConfig": {
+    "Host": "localhost",
+    "Port": "8500",
+    "StatusEndPoint": "management/health",
+    "StatusEndPointFrequencyCheck": "5s"
+  }```
