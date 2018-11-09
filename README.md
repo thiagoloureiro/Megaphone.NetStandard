@@ -10,8 +10,11 @@ MegaPhone is a lightweight framework to run self hosting REST services using Asp
 
 [![Build Status](https://img.shields.io/appveyor/ci/thiagoloureiro/megaphone-netstandard/master.svg)](https://ci.appveyor.com/project/thiagoloureiro/megaphone-netstandard) 
 
+**Install the Package**
+```Install-Package Megaphone.DotnetCore```
+```Install-Package Megaphone.DotnetCore.WebApi```
 
-##AppSettings Configuration:
+**AppSettings Configuration**
 ```
   "ConsulConfig": {
     "Host": "localhost",
