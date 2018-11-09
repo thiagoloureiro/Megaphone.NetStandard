@@ -23,4 +23,5 @@ MegaPhone is a lightweight framework to run self hosting REST services using Asp
     "Port": "8500",
     "StatusEndPoint": "management/health",
     "StatusEndPointFrequencyCheck": "5s"
-  }```
+  }
+  ```
