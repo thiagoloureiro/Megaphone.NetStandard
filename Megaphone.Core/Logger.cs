@@ -1,6 +1,6 @@
-using System;
 using Serilog;
 using Serilog.Events;
+using System;
 
 namespace Megaphone.Core
 {
