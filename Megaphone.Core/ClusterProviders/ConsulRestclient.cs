@@ -14,14 +14,22 @@ namespace Megaphone.Core.ClusterProviders
     {
         private readonly int consulPort;
         private readonly string consulHost;
+        private string _consulStatusFrequency;
+        private string _consulStatus;
 
         public ConsulRestClient()
         {
-            // int.TryParse(ConfigurationManager.AppSettings["Consul:Port"], out consulPort);
-            // consulHost =  ConfigurationManager.AppSettings["Consul:Host"];
+            int num = 8500;
+            consulPort = 0;
 
-            consulPort = consulPort == 0 ? 8500 : consulPort;
-            consulHost = consulHost ?? "localhost";
+            if (!int.TryParse(GlobalVariables.GetConfigurationValue("Port"), out consulPort))
+            {
+                consulPort = num;
+            }
+
+            _consulStatus = (GlobalVariables.GetConfigurationValue("StatusEndPoint") ?? "status");
+            _consulStatusFrequency = (GlobalVariables.GetConfigurationValue("StatusEndPointFrequencyCheck") ?? "10s");
+            consulHost = (GlobalVariables.GetConfigurationValue("Host") ?? "localhost");
         }
 
         public ConsulRestClient(int port)
@@ -37,8 +45,6 @@ namespace Megaphone.Core.ClusterProviders
                 Name = serviceName,
                 Tags = new[] { $"urlprefix-/{serviceName}" },
                 Address = Dns.GetHostName(),
-                // ReSharper disable once RedundantAnonymousTypePropertyName
-                Port = address.Port,
                 Check = new
                 {
                     HTTP = address + "status",
@@ -51,10 +57,8 @@ namespace Megaphone.Core.ClusterProviders
                 var json = JsonConvert.SerializeObject(payload);
                 var content = new StringContent(json);
 
-                var res =
-                    await
-                        client.PutAsync($"http://{consulHost}:{consulPort}/v1/agent/service/register", content)
-                            .ConfigureAwait(false);
+                var res = await client.PutAsync($"http://{consulHost}:{consulPort}/v1/agent/service/register", content).ConfigureAwait(false);
+
                 if (res.StatusCode != HttpStatusCode.OK)
                 {
                     throw new Exception("Could not register service");
