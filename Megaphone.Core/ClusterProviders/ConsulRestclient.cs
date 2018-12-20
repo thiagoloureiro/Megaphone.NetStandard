@@ -39,30 +39,37 @@ namespace Megaphone.Core.ClusterProviders
 
         public async Task RegisterServiceAsync(string serviceName, string serviceId, Uri address)
         {
-            var payload = new
+            try
             {
-                ID = serviceId,
-                Name = serviceName,
-                Tags = new[] { $"urlprefix-/{serviceName}" },
-                Address = Dns.GetHostName(),
-                Check = new
+                var payload = new
                 {
-                    HTTP = address + "status",
-                    Interval = "1s"
-                }
-            };
+                    ID = serviceId,
+                    Name = serviceName,
+                    Tags = new[] { $"urlprefix-/{serviceName}" },
+                    Address = Dns.GetHostName(),
+                    Check = new
+                    {
+                        HTTP = address + "status",
+                        Interval = "1s"
+                    }
+                };
 
-            using (HttpClient client = new HttpClient())
+                using (HttpClient client = new HttpClient())
+                {
+                    var json = JsonConvert.SerializeObject(payload);
+                    var content = new StringContent(json);
+
+                    var res = await client.PutAsync($"http://{consulHost}:{consulPort}/v1/agent/service/register", content).ConfigureAwait(false);
+
+                    if (res.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception("Could not register service");
+                    }
+                }
+            }
+            catch (Exception)
             {
-                var json = JsonConvert.SerializeObject(payload);
-                var content = new StringContent(json);
-
-                var res = await client.PutAsync($"http://{consulHost}:{consulPort}/v1/agent/service/register", content).ConfigureAwait(false);
-
-                if (res.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception("Could not register service");
-                }
+                throw new Exception("Could not register service, consul server not found");
             }
         }
 

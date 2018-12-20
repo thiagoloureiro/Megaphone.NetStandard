@@ -8,6 +8,7 @@ namespace Megaphone.Core
     {
         private static IClusterProvider _clusterProvider;
         private static IFrameworkProvider _frameworkProvider;
+        private static Uri _uri;
 
         public static Task<ServiceInformation[]> FindServiceInstancesAsync(string name)
         {
@@ -40,16 +41,16 @@ namespace Megaphone.Core
             try
             {
                 _frameworkProvider = frameworkProvider;
-                var uri = _frameworkProvider.GetUri(serviceName, version);
+                _uri = _frameworkProvider.GetUri(serviceName, version);
                 var serviceId = serviceName + Guid.NewGuid();
                 _clusterProvider = clusterProvider;
-                _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, uri).Wait();
-                return uri;
+                _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, _uri).Wait();
+                return _uri;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return null;
+                return _uri;
             }
         }
     }
