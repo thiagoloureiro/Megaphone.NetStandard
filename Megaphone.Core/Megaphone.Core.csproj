@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Thiago Loureiro</Authors>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Microservice framework with powerful service discovery using Consul</Description>
     <PackageLicenseUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard/blob/master/LICENSE</PackageLicenseUrl>
@@ -16,7 +16,8 @@
     <RepositoryType>GitHub</RepositoryType>
     <Copyright>2018© Thiago Loureiro</Copyright>
     <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
