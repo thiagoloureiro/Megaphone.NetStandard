@@ -16,12 +16,12 @@ MegaPhone is a lightweight framework to run self hosting REST services using Asp
 
 ```Install-Package Megaphone.DotnetCore.WebApi```
 
-**AppSettings Configuration**
+**AppSettings Sample Configuration**
 ```
   "ConsulConfig": {
     "Host": "localhost",
     "Port": "8500",
-    "StatusEndPoint": "management/health",
+    "StatusEndPoint": "status",
     "StatusEndPointFrequencyCheck": "5s"
   }
   ```
