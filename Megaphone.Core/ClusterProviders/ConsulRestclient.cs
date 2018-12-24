@@ -46,7 +46,8 @@ namespace Megaphone.Core.ClusterProviders
                     ID = serviceId,
                     Name = serviceName,
                     Tags = new[] { $"urlprefix-/{serviceName}" },
-                    Address = Dns.GetHostName(),
+                    Address = address.Host,
+                    Port = address.Port,
                     Check = new
                     {
                         HTTP = address + _consulStatus,
