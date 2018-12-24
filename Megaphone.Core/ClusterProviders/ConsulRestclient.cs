@@ -12,29 +12,29 @@ namespace Megaphone.Core.ClusterProviders
 {
     public class ConsulRestClient
     {
-        private readonly int consulPort;
-        private readonly string consulHost;
-        private string _consulStatusFrequency;
-        private string _consulStatus;
+        private readonly int _consulPort;
+        private readonly string _consulHost;
+        private readonly string _consulStatusFrequency;
+        private readonly string _consulStatus;
 
         public ConsulRestClient()
         {
             int num = 8500;
-            consulPort = 0;
+            _consulPort = 0;
 
-            if (!int.TryParse(GlobalVariables.GetConfigurationValue("Port"), out consulPort))
+            if (!int.TryParse(GlobalVariables.GetConfigurationValue("Port"), out _consulPort))
             {
-                consulPort = num;
+                _consulPort = num;
             }
 
             _consulStatus = (GlobalVariables.GetConfigurationValue("StatusEndPoint") ?? "status");
             _consulStatusFrequency = (GlobalVariables.GetConfigurationValue("StatusEndPointFrequencyCheck") ?? "10s");
-            consulHost = (GlobalVariables.GetConfigurationValue("Host") ?? "localhost");
+            _consulHost = (GlobalVariables.GetConfigurationValue("Host") ?? "localhost");
         }
 
         public ConsulRestClient(int port)
         {
-            consulPort = port;
+            _consulPort = port;
         }
 
         public async Task RegisterServiceAsync(string serviceName, string serviceId, Uri address)
@@ -49,8 +49,8 @@ namespace Megaphone.Core.ClusterProviders
                     Address = Dns.GetHostName(),
                     Check = new
                     {
-                        HTTP = address + "status",
-                        Interval = "1s"
+                        HTTP = address + _consulStatus,
+                        Interval = _consulStatusFrequency
                     }
                 };
 
@@ -59,7 +59,7 @@ namespace Megaphone.Core.ClusterProviders
                     var json = JsonConvert.SerializeObject(payload);
                     var content = new StringContent(json);
 
-                    var res = await client.PutAsync($"http://{consulHost}:{consulPort}/v1/agent/service/register", content).ConfigureAwait(false);
+                    var res = await client.PutAsync($"http://{_consulHost}:{_consulPort}/v1/agent/service/register", content).ConfigureAwait(false);
 
                     if (res.StatusCode != HttpStatusCode.OK)
                     {
@@ -79,7 +79,7 @@ namespace Megaphone.Core.ClusterProviders
             {
                 var response =
                     await
-                        client.GetAsync($"http://{consulHost}:{consulPort}/v1/health/service/" + serviceName)
+                        client.GetAsync($"http://{_consulHost}:{_consulPort}/v1/health/service/" + serviceName)
                             .ConfigureAwait(false);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
@@ -100,7 +100,7 @@ namespace Megaphone.Core.ClusterProviders
             {
                 var response =
                     await
-                        client.GetAsync($"http://{consulHost}:{consulPort}/v1/health/state/critical").ConfigureAwait(false);
+                        client.GetAsync($"http://{_consulHost}:{_consulPort}/v1/health/state/critical").ConfigureAwait(false);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     throw new Exception("Could not get service health");
@@ -117,7 +117,7 @@ namespace Megaphone.Core.ClusterProviders
             {
                 var response =
                     await
-                        client.PutAsync($"http://{consulHost}:{consulPort}/v1/agent/service/deregister/" + serviceId, null)
+                        client.PutAsync($"http://{_consulHost}:{_consulPort}/v1/agent/service/deregister/" + serviceId, null)
                             .ConfigureAwait(false);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
@@ -135,7 +135,7 @@ namespace Megaphone.Core.ClusterProviders
 
                 var response =
                     await
-                        client.PutAsync($"http://{consulHost}:{consulPort}/v1/kv/" + key, content).ConfigureAwait(false);
+                        client.PutAsync($"http://{_consulHost}:{_consulPort}/v1/kv/" + key, content).ConfigureAwait(false);
 
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
@@ -148,7 +148,7 @@ namespace Megaphone.Core.ClusterProviders
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync($"http://{consulHost}:{consulPort}/v1/kv/" + key).ConfigureAwait(false);
+                var response = await client.GetAsync($"http://{_consulHost}:{_consulPort}/v1/kv/" + key).ConfigureAwait(false);
 
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {

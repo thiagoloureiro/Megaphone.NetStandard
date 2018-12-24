@@ -36,12 +36,21 @@ namespace Megaphone.Core
             return _clusterProvider.KvGetAsync<T>(key);
         }
 
-        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version)
+        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version, string host = null, int? port = null)
         {
             try
             {
                 _frameworkProvider = frameworkProvider;
-                _uri = _frameworkProvider.GetUri(serviceName, version);
+
+                if (host == null && port == null)
+                {
+                    _uri = _frameworkProvider.GetUri(serviceName, version);
+                }
+                else
+                {
+                    _uri = new Uri($"http://{host}:{port}");
+                }
+
                 var serviceId = serviceName + Guid.NewGuid();
                 _clusterProvider = clusterProvider;
                 _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, _uri).Wait();
