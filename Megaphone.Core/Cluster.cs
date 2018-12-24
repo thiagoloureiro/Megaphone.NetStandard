@@ -8,6 +8,7 @@ namespace Megaphone.Core
     {
         private static IClusterProvider _clusterProvider;
         private static IFrameworkProvider _frameworkProvider;
+        private static Uri _uri;
 
         public static Task<ServiceInformation[]> FindServiceInstancesAsync(string name)
         {
@@ -35,21 +36,30 @@ namespace Megaphone.Core
             return _clusterProvider.KvGetAsync<T>(key);
         }
 
-        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version)
+        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version, string host = null, int? port = null)
         {
             try
             {
                 _frameworkProvider = frameworkProvider;
-                var uri = _frameworkProvider.GetUri(serviceName, version);
+
+                if (host == null && port == null)
+                {
+                    _uri = _frameworkProvider.GetUri(serviceName, version);
+                }
+                else
+                {
+                    _uri = new Uri($"http://{host}:{port}");
+                }
+
                 var serviceId = serviceName + Guid.NewGuid();
                 _clusterProvider = clusterProvider;
-                _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, uri).Wait();
-                return uri;
+                _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, _uri).Wait();
+                return _uri;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return null;
+                return _uri;
             }
         }
     }

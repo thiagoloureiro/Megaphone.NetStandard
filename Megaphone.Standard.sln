@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Megaphone.Core", "Megaphone.Core\Megaphone.Core.csproj", "{0D221BE8-7183-4A80-B6AD-1DE35B1936E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Megaphone.Core", "Megaphone.Core\Megaphone.Core.csproj", "{0D221BE8-7183-4A80-B6AD-1DE35B1936E7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{CEEFC217-52FA-49B8-8EE5-4DFD916CA29B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Megaphone.WebApi", "Megaphone.WebApi\Megaphone.WebApi.csproj", "{55DCEF48-C679-4D28-AA49-35674C73BB05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Megaphone.WebApi", "Megaphone.WebApi\Megaphone.WebApi.csproj", "{55DCEF48-C679-4D28-AA49-35674C73BB05}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrameworkSupport", "FrameworkSupport", "{E530CE65-48E6-449D-82BD-B5853C8B6F6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Megaphone.FWSupport.WebApi", "Megaphone.FWSupport.WebApi\Megaphone.FWSupport.WebApi.csproj", "{065269DB-698A-4D98-86E2-6722BD32B7E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Megaphone.FWSupport.WebApi", "Megaphone.FWSupport.WebApi\Megaphone.FWSupport.WebApi.csproj", "{065269DB-698A-4D98-86E2-6722BD32B7E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
