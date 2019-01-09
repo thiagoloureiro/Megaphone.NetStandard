@@ -3,5 +3,5 @@ before_build:
 build_script:
   - choco install "msbuild-sonarqube-runner" -y
   - MSBuild.SonarQube.Runner.exe begin /k:"megaphone" /d:"sonar.host.url=https://sonarcloud.io" /d:"sonar.login=67394b114a32c078f7a2311fd62d2bc19f816971"
-  - msbuild "Megaphone.Standard.sln.sln"
+  - msbuild "Megaphone.Standard.sln"
   - MSBuild.SonarQube.Runner.exe end /d:"sonar.login=67394b114a32c078f7a2311fd62d2bc19f816971"
