@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Megaphone.Core;
 
 namespace Megaphone.WebApi.Controllers
 {
@@ -11,6 +12,8 @@ namespace Megaphone.WebApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            var service = Cluster.FindServiceInstanceAsync("values").Result;
+
             return new string[] { "value1", "value2" };
         }
 

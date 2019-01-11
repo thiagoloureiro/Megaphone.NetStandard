@@ -16,6 +16,7 @@ namespace Megaphone.Core.ClusterProviders
         private readonly string _consulHost;
         private readonly string _consulStatusFrequency;
         private readonly string _consulStatus;
+        private static readonly HttpClient _httpClient = new HttpClient();
 
         public ConsulRestClient()
         {
@@ -55,17 +56,14 @@ namespace Megaphone.Core.ClusterProviders
                     }
                 };
 
-                using (HttpClient client = new HttpClient())
+                var json = JsonConvert.SerializeObject(payload);
+                var content = new StringContent(json);
+
+                var res = await _httpClient.PutAsync($"http://{_consulHost}:{_consulPort}/v1/agent/service/register", content).ConfigureAwait(false);
+
+                if (res.StatusCode != HttpStatusCode.OK)
                 {
-                    var json = JsonConvert.SerializeObject(payload);
-                    var content = new StringContent(json);
-
-                    var res = await client.PutAsync($"http://{_consulHost}:{_consulPort}/v1/agent/service/register", content).ConfigureAwait(false);
-
-                    if (res.StatusCode != HttpStatusCode.OK)
-                    {
-                        throw new Exception("Could not register service");
-                    }
+                    throw new Exception("Could not register service");
                 }
             }
             catch (Exception)
@@ -76,98 +74,83 @@ namespace Megaphone.Core.ClusterProviders
 
         public async Task<ServiceInformation[]> FindServiceAsync(string serviceName)
         {
-            using (HttpClient client = new HttpClient())
+            var response =
+                await
+                    _httpClient.GetAsync($"http://{_consulHost}:{_consulPort}/v1/health/service/" + serviceName)
+                        .ConfigureAwait(false);
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                var response =
-                    await
-                        client.GetAsync($"http://{_consulHost}:{_consulPort}/v1/health/service/" + serviceName)
-                            .ConfigureAwait(false);
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception("Could not find services");
-                }
-
-                var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var res = JArray.Parse(body);
-
-                return res.Select(entry => new ServiceInformation(entry["Service"]["Address"].Value<string>(),
-                    entry["Service"]["Port"].Value<int>())).ToArray();
+                throw new Exception("Could not find services");
             }
+
+            var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var res = JArray.Parse(body);
+
+            return res.Select(entry => new ServiceInformation(entry["Service"]["Address"].Value<string>(),
+                entry["Service"]["Port"].Value<int>())).ToArray();
         }
 
         public async Task<string[]> GetCriticalServicesAsync()
         {
-            using (HttpClient client = new HttpClient())
+            var response =
+                await
+                    _httpClient.GetAsync($"http://{_consulHost}:{_consulPort}/v1/health/state/critical").ConfigureAwait(false);
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                var response =
-                    await
-                        client.GetAsync($"http://{_consulHost}:{_consulPort}/v1/health/state/critical").ConfigureAwait(false);
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception("Could not get service health");
-                }
-                var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var res = JArray.Parse(body);
-                return res.Cast<JObject>().Select(service => service["ServiceID"].Value<string>()).ToArray();
+                throw new Exception("Could not get service health");
             }
+            var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var res = JArray.Parse(body);
+            return res.Cast<JObject>().Select(service => service["ServiceID"].Value<string>()).ToArray();
         }
 
         public async Task DeregisterServiceAsync(string serviceId)
         {
-            using (var client = new HttpClient())
+            var response =
+                await
+                    _httpClient.PutAsync($"http://{_consulHost}:{_consulPort}/v1/agent/service/deregister/" + serviceId, null)
+                        .ConfigureAwait(false);
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                var response =
-                    await
-                        client.PutAsync($"http://{_consulHost}:{_consulPort}/v1/agent/service/deregister/" + serviceId, null)
-                            .ConfigureAwait(false);
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception("Could not de register service");
-                }
+                throw new Exception("Could not de register service");
             }
         }
 
         public async Task KVPutAsync(string key, object value)
         {
-            using (var client = new HttpClient())
+            var json = JsonConvert.SerializeObject(value);
+            var content = new StringContent(json);
+
+            var response =
+                await
+                    _httpClient.PutAsync($"http://{_consulHost}:{_consulPort}/v1/kv/" + key, content).ConfigureAwait(false);
+
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                var json = JsonConvert.SerializeObject(value);
-                var content = new StringContent(json);
-
-                var response =
-                    await
-                        client.PutAsync($"http://{_consulHost}:{_consulPort}/v1/kv/" + key, content).ConfigureAwait(false);
-
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception("Could not put value");
-                }
+                throw new Exception("Could not put value");
             }
         }
 
         public async Task<T> KVGetAsync<T>(string key)
         {
-            using (var client = new HttpClient())
+            var response = await _httpClient.GetAsync($"http://{_consulHost}:{_consulPort}/v1/kv/" + key).ConfigureAwait(false);
+
+            if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                var response = await client.GetAsync($"http://{_consulHost}:{_consulPort}/v1/kv/" + key).ConfigureAwait(false);
-
-                if (response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    throw new Exception($"There is no value for key \"{key}\"");
-                }
-
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception("Could not get value");
-                }
-
-                var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var deserializedBody = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(body);
-                var bytes = Convert.FromBase64String((string)deserializedBody[0]["Value"]);
-                var strValue = Encoding.UTF8.GetString(bytes);
-
-                return JsonConvert.DeserializeObject<T>(strValue);
+                throw new Exception($"There is no value for key \"{key}\"");
             }
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception("Could not get value");
+            }
+
+            var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var deserializedBody = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(body);
+            var bytes = Convert.FromBase64String((string)deserializedBody[0]["Value"]);
+            var strValue = Encoding.UTF8.GetString(bytes);
+
+            return JsonConvert.DeserializeObject<T>(strValue);
         }
     }
 }
