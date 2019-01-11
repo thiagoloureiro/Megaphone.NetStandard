@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Thiago Loureiro</Authors>
-    <Version>1.3.0</Version>
+    <Version>1.6.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Microservice framework with powerful service discovery using Consul</Description>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -15,14 +15,14 @@
     <Product>Megaphone.DotnetCore</Product>
     <RepositoryType>GitHub</RepositoryType>
     <Copyright>2018© Thiago Loureiro</Copyright>
-    <PackageReleaseNotes>v1.3 Release, configurable options, bug fixes and improvements</PackageReleaseNotes>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.3.0.0</FileVersion>
+    <PackageReleaseNotes>v1.6 Release, configurable options, bug fixes and improvements</PackageReleaseNotes>
+    <AssemblyVersion>1.6.0.0</AssemblyVersion>
+    <FileVersion>1.6.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="Serilog.Sinks.ColoredConsole" Version="3.0.1" />
