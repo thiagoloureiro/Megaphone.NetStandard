@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Thiago Loureiro</Authors>
-    <Version>1.6.0</Version>
+    <Version>1.7.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Microservice framework with powerful service discovery using Consul</Description>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -15,9 +15,9 @@
     <Product>Megaphone.DotnetCore</Product>
     <RepositoryType>GitHub</RepositoryType>
     <Copyright>2018© Thiago Loureiro</Copyright>
-    <PackageReleaseNotes>v1.6 Release, configurable options, bug fixes and improvements</PackageReleaseNotes>
-    <AssemblyVersion>1.6.0.0</AssemblyVersion>
-    <FileVersion>1.6.0.0</FileVersion>
+    <PackageReleaseNotes>v1.7 Release, httpClient improvements</PackageReleaseNotes>
+    <AssemblyVersion>1.7.0.0</AssemblyVersion>
+    <FileVersion>1.7.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
