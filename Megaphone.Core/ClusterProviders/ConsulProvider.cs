@@ -7,11 +7,7 @@ namespace Megaphone.Core.ClusterProviders
 {
     public class ConsulProvider : IClusterProvider
     {
-        private string _serviceId;
-        private string _serviceName;
-        private Uri _uri;
-        private string _version;
-        private readonly int _consulPort = 0;
+        private readonly int _consulPort;
 
         public ConsulProvider(int port = 0)
         {
@@ -28,10 +24,6 @@ namespace Megaphone.Core.ClusterProviders
 
         public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri)
         {
-            _serviceName = serviceName;
-            _serviceId = serviceId;
-            _version = version;
-            _uri = uri;
             var x = new ConsulRestClient();
             await x.RegisterServiceAsync(serviceName, serviceId, uri).ConfigureAwait(false);
             StartReaper();
@@ -59,7 +51,7 @@ namespace Megaphone.Core.ClusterProviders
         {
             Task.Factory.StartNew(async () =>
             {
-                await Task.Delay(1000).ConfigureAwait(false);
+                await Task.Delay(10000).ConfigureAwait(false);
                 Logger.Information("Reaper: started..");
 
                 var c = _consulPort > 0 ? new ConsulRestClient(_consulPort) : new ConsulRestClient();
