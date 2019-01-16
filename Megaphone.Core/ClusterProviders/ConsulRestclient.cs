@@ -116,7 +116,7 @@ namespace Megaphone.Core.ClusterProviders
             }
         }
 
-        public async Task KVPutAsync(string key, object value)
+        public async Task KvPutAsync(string key, object value)
         {
             var json = JsonConvert.SerializeObject(value);
             var content = new StringContent(json);
@@ -131,13 +131,13 @@ namespace Megaphone.Core.ClusterProviders
             }
         }
 
-        public async Task<T> KVGetAsync<T>(string key)
+        public async Task<T> KvGetAsync<T>(string key)
         {
             var response = await _httpClient.GetAsync($"http://{_consulHost}:{_consulPort}/v1/kv/" + key).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                throw new Exception($"There is no value for key \"{key}\"");
+                return (T)Convert.ChangeType("Error: Key not found", typeof(T));
             }
 
             if (response.StatusCode != HttpStatusCode.OK)

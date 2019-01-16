@@ -16,16 +16,12 @@ namespace Megaphone.Core.ClusterProviders
 
         public async Task<ServiceInformation[]> FindServiceInstancesAsync(string name)
         {
-            var x = new ConsulRestClient();
-            var res = await x.FindServiceAsync(name).ConfigureAwait(false);
-
-            return res;
+            return await new ConsulRestClient().FindServiceAsync(name).ConfigureAwait(false);
         }
 
         public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri)
         {
-            var x = new ConsulRestClient();
-            await x.RegisterServiceAsync(serviceName, serviceId, uri).ConfigureAwait(false);
+            await new ConsulRestClient().RegisterServiceAsync(serviceName, serviceId, uri).ConfigureAwait(false);
             StartReaper();
         }
 
@@ -37,14 +33,12 @@ namespace Megaphone.Core.ClusterProviders
 
         public async Task KvPutAsync(string key, object value)
         {
-            var x = new ConsulRestClient();
-            await x.KVPutAsync(key, value).ConfigureAwait(false);
+            await new ConsulRestClient().KvPutAsync(key, value).ConfigureAwait(false);
         }
 
         public async Task<T> KvGetAsync<T>(string key)
         {
-            var x = new ConsulRestClient();
-            return await x.KVGetAsync<T>(key).ConfigureAwait(false); ;
+            return await new ConsulRestClient().KvGetAsync<T>(key).ConfigureAwait(false); ;
         }
 
         private void StartReaper()
@@ -52,7 +46,7 @@ namespace Megaphone.Core.ClusterProviders
             Task.Factory.StartNew(async () =>
             {
                 await Task.Delay(10000).ConfigureAwait(false);
-                Logger.Information("Reaper: started..");
+                Logger.Information("Reaper: started");
 
                 var c = _consulPort > 0 ? new ConsulRestClient(_consulPort) : new ConsulRestClient();
 

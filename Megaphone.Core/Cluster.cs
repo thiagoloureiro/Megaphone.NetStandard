@@ -26,14 +26,14 @@ namespace Megaphone.Core
             _clusterProvider.BootstrapClientAsync().Wait();
         }
 
-        public static Task KvPutAsync(string key, object value)
+        public static async Task KvPutAsync(string key, object value)
         {
-            return _clusterProvider.KvPutAsync(key, value);
+            await _clusterProvider.KvPutAsync(key, value);
         }
 
-        public static Task<T> KvGetAsync<T>(string key)
+        public static async Task<T> KvGetAsync<T>(string key)
         {
-            return _clusterProvider.KvGetAsync<T>(key);
+            return await _clusterProvider.KvGetAsync<T>(key);
         }
 
         public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version, string host = null, int? port = null)
