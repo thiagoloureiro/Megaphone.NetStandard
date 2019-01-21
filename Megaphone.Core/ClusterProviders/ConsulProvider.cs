@@ -22,12 +22,11 @@ namespace Megaphone.Core.ClusterProviders
         public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri)
         {
             await new ConsulRestClient().RegisterServiceAsync(serviceName, serviceId, uri).ConfigureAwait(false);
-            StartReaper();
+            StartReaper(serviceName);
         }
 
         public Task BootstrapClientAsync()
         {
-            StartReaper();
             return Task.FromResult(0);
         }
 
@@ -41,7 +40,7 @@ namespace Megaphone.Core.ClusterProviders
             return await new ConsulRestClient().KvGetAsync<T>(key).ConfigureAwait(false); ;
         }
 
-        private void StartReaper()
+        private void StartReaper(string serviceName)
         {
             Task.Factory.StartNew(async () =>
             {
@@ -56,7 +55,10 @@ namespace Megaphone.Core.ClusterProviders
                     try
                     {
                         var res = await c.GetCriticalServicesAsync().ConfigureAwait(false);
-                        foreach (var criticalServiceId in res)
+
+                        var filteredServices = res.Where(x => x.Contains(serviceName)); // only remove his own service
+
+                        foreach (var criticalServiceId in filteredServices)
                         {
                             if (lookup.Contains(criticalServiceId))
                             {
@@ -69,6 +71,7 @@ namespace Megaphone.Core.ClusterProviders
                                 Logger.Information("Reaper: Marking {ServiceId}", criticalServiceId);
                             }
                         }
+
                         //remove entries that are no longer critical
                         lookup.RemoveWhere(i => !res.Contains(i));
                     }
