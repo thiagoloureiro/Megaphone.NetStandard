@@ -52,7 +52,8 @@ namespace Megaphone.Core.ClusterProviders
                     Check = new
                     {
                         HTTP = address + _consulStatus,
-                        Interval = _consulStatusFrequency
+                        Interval = _consulStatusFrequency,
+                        DeregisterCriticalServiceAfter = "15s"
                     }
                 };
 
