@@ -9,9 +9,9 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>microservices dotnetcore consul</PackageTags>
     <PackageReleaseNotes>v1.9 Release, Bug fixes</PackageReleaseNotes>
-    <AssemblyVersion>1.9.2.0</AssemblyVersion>
-    <FileVersion>1.9.2.0</FileVersion>
-    <Version>1.9.2</Version>
+    <AssemblyVersion>1.9.3.0</AssemblyVersion>
+    <FileVersion>1.9.3.0</FileVersion>
+    <Version>1.9.3</Version>
     <PackageId>Megaphone.DotnetCore.WebApi</PackageId>
     <Authors>Thiago Loureiro</Authors>
     <Company>Thiago Loureiro</Company>
