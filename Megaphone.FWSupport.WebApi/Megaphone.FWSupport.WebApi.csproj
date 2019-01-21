@@ -9,15 +9,15 @@
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>microservices dotnetcore consul</PackageTags>
     <PackageReleaseNotes>v1.9 Release, Bug fixes</PackageReleaseNotes>
-    <AssemblyVersion>1.9.6.0</AssemblyVersion>
-    <FileVersion>1.9.6.0</FileVersion>
-    <Version>1.9.6</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
     <PackageId>Megaphone.DotnetCore.WebApi</PackageId>
     <Authors>Thiago Loureiro</Authors>
     <Company>Thiago Loureiro</Company>
     <Product>Megaphone.DotnetCore.WebApi</Product>
     <Description>Microservice framework with powerful service discovery using Consul - WebAPI Support Module</Description>
-    <Copyright>2018© Thiago Loureiro</Copyright>
+    <Copyright>2019© Thiago Loureiro</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
