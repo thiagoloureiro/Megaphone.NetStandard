@@ -10,6 +10,8 @@ namespace Megaphone.Core.ClusterProviders
 
         Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri);
 
+        Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri, string[] tags);
+
         Task BootstrapClientAsync();
 
         Task KvPutAsync(string key, object value);

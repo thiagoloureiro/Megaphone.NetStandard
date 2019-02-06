@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Megaphone.Core.Util;
 
 namespace Megaphone.Core.ClusterProviders
 {
@@ -36,6 +37,41 @@ namespace Megaphone.Core.ClusterProviders
         public ConsulRestClient(int port)
         {
             _consulPort = port;
+        }
+
+        public async Task RegisterServiceAsync(string serviceName, string serviceId, Uri address, string[] tags)
+        {
+            try
+            {
+                var payload = new
+                {
+                    ID = serviceId,
+                    Name = serviceName,
+                    Tags = tags,
+                    Address = address.Host,
+                    Port = address.Port,
+                    Check = new
+                    {
+                        HTTP = address + _consulStatus,
+                        Interval = _consulStatusFrequency,
+                        DeregisterCriticalServiceAfter = "15s"
+                    }
+                };
+
+                var json = JsonConvert.SerializeObject(payload);
+                var content = new StringContent(json);
+
+                var res = await _httpClient.PutAsync($"http://{_consulHost}:{_consulPort}/v1/agent/service/register", content).ConfigureAwait(false);
+
+                if (res.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception("Could not register service");
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Could not register service, consul server not found");
+            }
         }
 
         public async Task RegisterServiceAsync(string serviceName, string serviceId, Uri address)
@@ -75,10 +111,8 @@ namespace Megaphone.Core.ClusterProviders
 
         public async Task<ServiceInformation[]> FindServiceAsync(string serviceName)
         {
-            var response =
-                await
-                    _httpClient.GetAsync($"http://{_consulHost}:{_consulPort}/v1/health/service/" + serviceName)
-                        .ConfigureAwait(false);
+            var response = await _httpClient.GetAsync($"http://{_consulHost}:{_consulPort}/v1/health/service/" + serviceName).ConfigureAwait(false);
+
             if (response.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception("Could not find services");
@@ -88,7 +122,33 @@ namespace Megaphone.Core.ClusterProviders
             var res = JArray.Parse(body);
 
             return res.Select(entry => new ServiceInformation(entry["Service"]["Address"].Value<string>(),
-                entry["Service"]["Port"].Value<int>())).ToArray();
+                entry["Service"]["Port"].Value<int>(), null)).ToArray();
+        }
+
+        public async Task<ServiceInformation[]> FindServiceByTagAsync(string[] tags)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"http://{_consulHost}:{_consulPort}/v1/agent/services").ConfigureAwait(false);
+
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception("Could not find services");
+                }
+
+                var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var ret = JsonResponseConsul.GetJsonStructure(body);
+
+                //  var lstServices = res.Select(entry => new ServiceInformation(entry["Service"]["Address"].Value<string>(), entry["Service"]["Port"].Value<int>(), entry["Tags"].Value<string[]>())).ToList();
+
+                // return lstServices.Where(x => tags.Any(x.Tags.Contains)).ToArray();
+                return null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public async Task<string[]> GetCriticalServicesAsync()

@@ -36,7 +36,7 @@ namespace Megaphone.Core
             return await _clusterProvider.KvGetAsync<T>(key);
         }
 
-        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version, string host = null, int? port = null)
+        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version, string host = null, int? port = null, string[] tags = null)
         {
             try
             {
@@ -53,7 +53,12 @@ namespace Megaphone.Core
 
                 var serviceId = serviceName + Guid.NewGuid();
                 _clusterProvider = clusterProvider;
-                _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, _uri).Wait();
+
+                if (tags != null)
+                    _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, _uri, tags).Wait();
+                else
+                    _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, _uri).Wait();
+
                 return _uri;
             }
             catch (Exception e)
