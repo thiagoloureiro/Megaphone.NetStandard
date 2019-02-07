@@ -1,5 +1,6 @@
 ﻿using Megaphone.Core.ClusterProviders;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Megaphone.Core
@@ -10,14 +11,19 @@ namespace Megaphone.Core
         private static IFrameworkProvider _frameworkProvider;
         private static Uri _uri;
 
-        public static Task<ServiceInformation[]> FindServiceInstancesAsync(string name)
+        public static async Task<ServiceInformation[]> FindServiceInstancesAsync(string name)
         {
-            return _clusterProvider.FindServiceInstancesAsync(name);
+            return await _clusterProvider.FindServiceInstancesAsync(name);
         }
 
-        public static Task<ServiceInformation> FindServiceInstanceAsync(string name)
+        public static async Task<ServiceInformation> FindServiceInstanceAsync(string name)
         {
-            return _clusterProvider.FindServiceInstanceAsync(name);
+            return await _clusterProvider.FindServiceInstanceAsync(name);
+        }
+
+        public static async Task<Services[]> FindServiceByTagAsync(string[] tags)
+        {
+            return await _clusterProvider.FindServiceByTagAsync(tags);
         }
 
         public static void BootstrapClient(IClusterProvider clusterProvider)
