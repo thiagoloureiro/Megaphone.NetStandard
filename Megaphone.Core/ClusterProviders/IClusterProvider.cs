@@ -8,6 +8,8 @@ namespace Megaphone.Core.ClusterProviders
     {
         Task<ServiceInformation[]> FindServiceInstancesAsync(string name);
 
+        Task<Services[]> FindServiceByTagAsync(string[] tags);
+
         Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri);
 
         Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri, string[] tags);

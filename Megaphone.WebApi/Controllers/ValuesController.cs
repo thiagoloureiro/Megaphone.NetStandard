@@ -15,7 +15,7 @@ namespace Megaphone.WebApi.Controllers
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
             var service = Cluster.FindServiceInstanceAsync("values").Result;
-            var service2 = await new ConsulRestClient().FindServiceByTagAsync(new[] { "provider" });
+            var service2 = await Cluster.FindServiceByTagAsync(new[] { "provider" });
 
             return new string[] { "value1", "value2" };
         }
