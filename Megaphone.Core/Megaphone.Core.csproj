@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Thiago Loureiro</Authors>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Microservice framework with powerful service discovery using Consul</Description>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -15,9 +15,9 @@
     <Product>Megaphone.DotnetCore</Product>
     <RepositoryType>GitHub</RepositoryType>
     <Copyright>2019© Thiago Loureiro</Copyright>
-    <PackageReleaseNotes>v1.9 Release, Bug fixes</PackageReleaseNotes>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>0.0.0.0</FileVersion>
+    <PackageReleaseNotes>v2.1 Implemented Search By Tag</PackageReleaseNotes>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
+    <FileVersion>2.1.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
