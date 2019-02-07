@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Megaphone.Core;
+using Megaphone.Core.ClusterProviders;
 
 namespace Megaphone.WebApi.Controllers
 {
@@ -10,9 +12,10 @@ namespace Megaphone.WebApi.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<string>>> Get()
         {
             var service = Cluster.FindServiceInstanceAsync("values").Result;
+            var service2 = await new ConsulRestClient().FindServiceByTagAsync(new[] { "provider" });
 
             return new string[] { "value1", "value2" };
         }
