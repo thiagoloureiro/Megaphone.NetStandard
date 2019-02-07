@@ -1,60 +1,46 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Megaphone.Core.Util
 {
-    public class Obj
-    {
-        public string ID { get; set; }
-        public string Service { get; set; }
-        public List<string> Tags { get; set; }
-        public int Port { get; set; }
-        public string Address { get; set; }
-        public bool EnableTagOverride { get; set; }
-    }
-
     public class JsonResponseConsul
     {
-        public static object GetJsonStructure(string body)
+        public static ServiceInformationExtended GetJsonStructure(string body)
         {
-            var lstServices = new List<ServiceInformation>();
+            List<string> lstStr = body.Split(new[] { "\n" }, StringSplitOptions.None)
+                .ToList();
 
-            var idx = new List<int>();
+            lstStr[0] = "{ \"Services\":[{";
+            lstStr[1] = ""; // remove root
 
-            bool createObject = false;
-
-            var lstStr = new List<string>();
-
-            using (var reader = new JsonTextReader(new StringReader(body)))
+            for (int i = 0; i < lstStr.Count; i++)
             {
-                while (reader.Read())
+                if (lstStr[i].Contains("EnableTagOverride"))
                 {
-                    if (reader.Value != null)
+                    if (lstStr.Count - i > 10)
                     {
-                        lstStr.Add(reader.Value.ToString());
+                        lstStr[i + 1] = "}, {";
+                        lstStr[i + 2] = ""; // remove root
+                    }
+                    else
+                    {
+                        lstStr[i + 1] = "";
                     }
                 }
             }
 
-            var aryLst = lstStr.ToArray();
+            lstStr[lstStr.Count - 1] = "]}";
 
-            for (int i = 0; i < aryLst.Count(); i++)
-            {
-                if (aryLst[i] == "ID")
-                    idx.Add(i);
-            }
+            var str = new StringBuilder();
 
-            foreach (var id in idx)
-            {
-                for (int i = id; i < id; i++)
-                {
-                }
-            }
+            lstStr.ForEach(i => str.AppendLine(i));
 
-            return null;
+            var obj = JsonConvert.DeserializeObject<ServiceInformationExtended>(str.ToString());
+
+            return obj;
         }
     }
 }

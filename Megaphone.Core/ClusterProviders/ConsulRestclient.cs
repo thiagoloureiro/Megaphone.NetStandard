@@ -125,7 +125,7 @@ namespace Megaphone.Core.ClusterProviders
                 entry["Service"]["Port"].Value<int>(), null)).ToArray();
         }
 
-        public async Task<ServiceInformation[]> FindServiceByTagAsync(string[] tags)
+        public async Task<Services[]> FindServiceByTagAsync(string[] tags)
         {
             try
             {
@@ -137,12 +137,9 @@ namespace Megaphone.Core.ClusterProviders
                 }
 
                 var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                var ret = JsonResponseConsul.GetJsonStructure(body);
+                var lstServices = JsonResponseConsul.GetJsonStructure(body).Services;
 
-                //  var lstServices = res.Select(entry => new ServiceInformation(entry["Service"]["Address"].Value<string>(), entry["Service"]["Port"].Value<int>(), entry["Tags"].Value<string[]>())).ToList();
-
-                // return lstServices.Where(x => tags.Any(x.Tags.Contains)).ToArray();
-                return null;
+                return lstServices.Where(x => tags.Any(x.Tags.Contains)).ToArray();
             }
             catch (Exception e)
             {
