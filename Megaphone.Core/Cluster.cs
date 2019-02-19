@@ -42,7 +42,7 @@ namespace Megaphone.Core
             return await _clusterProvider.KvGetAsync<T>(key);
         }
 
-        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version, string host = null, int? port = null, string[] tags = null)
+        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version, string host = null, int? port = null, string[] tags = null, bool useHttps = false)
         {
             try
             {
@@ -50,11 +50,11 @@ namespace Megaphone.Core
 
                 if (host == null && port == null)
                 {
-                    _uri = _frameworkProvider.GetUri(serviceName, version);
+                    _uri = _frameworkProvider.GetUri(serviceName, version, useHttps);
                 }
                 else
                 {
-                    _uri = new Uri($"http://{host}:{port}");
+                    _uri = useHttps ? new Uri($"https://{host}:{port}") : new Uri($"http://{host}:{port}");
                 }
 
                 var serviceId = serviceName + Guid.NewGuid();
