@@ -52,7 +52,7 @@ namespace Megaphone.Core.ClusterProviders
                     Port = address.Port,
                     Check = new
                     {
-                        HTTP = address + _consulStatus,
+                        HTTP = address.OriginalString + "/" + _consulStatus,
                         Interval = _consulStatusFrequency,
                         DeregisterCriticalServiceAfter = "15s"
                     }

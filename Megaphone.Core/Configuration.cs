@@ -6,10 +6,13 @@ namespace Megaphone.Core
 {
     public static class Configuration
     {
-        public static Uri GetUri(int port = 0)
+        public static Uri GetUri(int port = 0, bool useHttps = false)
         {
             port = port == 0 ? FreeTcpPort() : port;
-            var uri = new Uri("http://localhost:" + port);
+            Uri uri;
+
+            uri = useHttps ? new Uri("https://localhost:" + port) : new Uri("http://localhost:" + port);
+
             return uri;
         }
 
