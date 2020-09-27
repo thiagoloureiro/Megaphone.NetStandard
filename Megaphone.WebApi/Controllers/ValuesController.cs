@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Megaphone.Core;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Megaphone.Core;
-using Megaphone.Core.ClusterProviders;
 
 namespace Megaphone.WebApi.Controllers
 {
