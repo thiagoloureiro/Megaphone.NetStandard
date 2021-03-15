@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Megaphone.Core.Util;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Megaphone.Core.Util;
 
 namespace Megaphone.Core.ClusterProviders
 {
@@ -17,6 +17,9 @@ namespace Megaphone.Core.ClusterProviders
         private readonly string _consulHost;
         private readonly string _consulStatusFrequency;
         private readonly string _consulStatus;
+        private readonly bool _tlsSkipVerify;
+        private readonly string _deregisterCriticalServiceAfter;
+
         private static readonly HttpClient _httpClient = new HttpClient();
 
         public ConsulRestClient()
@@ -32,6 +35,20 @@ namespace Megaphone.Core.ClusterProviders
             _consulStatus = (GlobalVariables.GetConfigurationValue("StatusEndPoint") ?? "status");
             _consulStatusFrequency = (GlobalVariables.GetConfigurationValue("StatusEndPointFrequencyCheck") ?? "10s");
             _consulHost = (GlobalVariables.GetConfigurationValue("Host") ?? "localhost");
+            _deregisterCriticalServiceAfter = (GlobalVariables.GetConfigurationValue("DeregisterCriticalServiceAfter") ?? "15s");
+
+            if (GlobalVariables.GetConfigurationValue("TLSSkipVerify") != null)
+            {
+                bool myVal;
+                if (bool.TryParse(GlobalVariables.GetConfigurationValue("TLSSkipVerify").ToLower(), out myVal))
+                {
+                    _tlsSkipVerify = myVal;
+                }
+                else
+                {
+                    _tlsSkipVerify = false;
+                }
+            }
         }
 
         public ConsulRestClient(int port)
@@ -54,7 +71,8 @@ namespace Megaphone.Core.ClusterProviders
                     {
                         HTTP = address.OriginalString + "/" + _consulStatus,
                         Interval = _consulStatusFrequency,
-                        DeregisterCriticalServiceAfter = "15s"
+                        DeregisterCriticalServiceAfter = _deregisterCriticalServiceAfter,
+                        TLSSkipVerify = _tlsSkipVerify
                     }
                 };
 
@@ -89,7 +107,8 @@ namespace Megaphone.Core.ClusterProviders
                     {
                         HTTP = address + _consulStatus,
                         Interval = _consulStatusFrequency,
-                        DeregisterCriticalServiceAfter = "15s"
+                        DeregisterCriticalServiceAfter = _deregisterCriticalServiceAfter,
+                        TLSSkipVerify = _tlsSkipVerify
                     }
                 };
 

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>Thiago Loureiro</Authors>
-    <Version>2.5.0</Version>
+    <Version>2.6.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Microservice framework with powerful service discovery using Consul</Description>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -14,10 +14,10 @@
     <PackageId>Megaphone.DotnetCore</PackageId>
     <Product>Megaphone.DotnetCore</Product>
     <RepositoryType>GitHub</RepositoryType>
-    <Copyright>2019© Thiago Loureiro</Copyright>
-    <PackageReleaseNotes>v2.5 .NET Core 3.0 Support</PackageReleaseNotes>
-    <AssemblyVersion>2.5.0.0</AssemblyVersion>
-    <FileVersion>2.5.0.0</FileVersion>
+    <Copyright>2021© Thiago Loureiro</Copyright>
+    <PackageReleaseNotes>v2.6 new variables for consul</PackageReleaseNotes>
+    <AssemblyVersion>2.6.0.0</AssemblyVersion>
+    <FileVersion>2.6.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
