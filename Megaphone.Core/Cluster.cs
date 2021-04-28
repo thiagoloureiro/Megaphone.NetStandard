@@ -1,7 +1,8 @@
 ﻿using Megaphone.Core.ClusterProviders;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Megaphone.Core
 {
@@ -10,6 +11,7 @@ namespace Megaphone.Core
         private static IClusterProvider _clusterProvider;
         private static IFrameworkProvider _frameworkProvider;
         private static Uri _uri;
+        private static ServiceData _serviceData;
 
         public static async Task<ServiceInformation[]> FindServiceInstancesAsync(string name)
         {
@@ -42,8 +44,19 @@ namespace Megaphone.Core
             return await _clusterProvider.KvGetAsync<T>(key);
         }
 
-        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version, string host = null, int? port = null, string[] tags = null, bool useHttps = false)
+        public static Uri Bootstrap(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider, string serviceName, string version, string host = null, int? port = null, string[] tags = null, bool useHttps = false, bool selfRegisterTimer = false, int selfRegisterTimerInterval = 10000)
         {
+            _serviceData = new ServiceData();
+
+            if (selfRegisterTimer)
+            {
+                if (selfRegisterTimerInterval < 1000) selfRegisterTimerInterval = 1000;
+
+                var timer = new Timer(selfRegisterTimerInterval);
+                timer.Elapsed += Timer_Elapsed;
+                timer.Start();
+            }
+
             try
             {
                 _frameworkProvider = frameworkProvider;
@@ -65,12 +78,39 @@ namespace Megaphone.Core
                 else
                     _clusterProvider.RegisterServiceAsync(serviceName, serviceId, version, _uri).Wait();
 
+                _serviceData.serviceName = serviceName;
+                _serviceData.serviceId = serviceId;
+                _serviceData.version = version;
+                _serviceData._uri = _uri;
+                _serviceData.tags = tags;
+
                 return _uri;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 return _uri;
+            }
+        }
+
+        private static async void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                var services = await _clusterProvider.FindServiceInstancesAsync(_serviceData.serviceName);
+                var service = services.Where(x => x.Port == _serviceData._uri.Port).SingleOrDefault();
+
+                if (service == null)
+                {
+                    if (_serviceData.tags != null)
+                        await _clusterProvider.RegisterServiceAsync(_serviceData.serviceName, _serviceData.serviceId, _serviceData.version, _serviceData._uri, _serviceData.tags);
+                    else
+                        await _clusterProvider.RegisterServiceAsync(_serviceData.serviceName, _serviceData.serviceId, _serviceData.version, _serviceData._uri);
+                }
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
             }
         }
     }

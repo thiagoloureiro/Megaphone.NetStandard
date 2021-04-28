@@ -27,7 +27,8 @@ namespace Megaphone.Core.ClusterProviders
         {
             var res = await self.FindServiceInstancesAsync(serviceName).ConfigureAwait(false);
             if (res.Length == 0)
-                throw new Exception("Could not find service");
+                return null;
+            //throw new Exception("Could not find service");
 
             return res[ThreadLocalRandom.Current.Next(0, res.Length)];
         }
