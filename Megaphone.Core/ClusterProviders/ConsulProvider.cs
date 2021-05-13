@@ -25,6 +25,11 @@ namespace Megaphone.Core.ClusterProviders
             await new ConsulRestClient().RegisterServiceAsync(serviceName, serviceId, uri, tags).ConfigureAwait(false);
         }
 
+        public async Task DeRegisterServiceAsync(string serviceId)
+        {
+            await new ConsulRestClient().DeregisterServiceAsync(serviceId).ConfigureAwait(false);
+        }
+
         public Task BootstrapClientAsync()
         {
             return Task.FromResult(0);

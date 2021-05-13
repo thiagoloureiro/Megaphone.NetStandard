@@ -140,8 +140,13 @@ namespace Megaphone.Core.ClusterProviders
             var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             var res = JArray.Parse(body);
 
-            return res.Select(entry => new ServiceInformation(entry["Service"]["Address"].Value<string>(),
-                entry["Service"]["Port"].Value<int>(), null)).ToArray();
+            var content = res.Select(entry => new ServiceInformation(
+                entry["Service"]["Address"].Value<string>(),
+               entry["Service"]["Port"].Value<int>(),
+                entry["Service"]["ID"].Value<string>(), null))
+                .ToArray();
+
+            return content;
         }
 
         public async Task<Services[]> FindServiceByTagAsync(string[] tags)

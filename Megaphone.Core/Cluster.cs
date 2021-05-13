@@ -97,10 +97,29 @@ namespace Megaphone.Core
         {
             try
             {
-                var services = await _clusterProvider.FindServiceInstancesAsync(_serviceData.serviceName);
-                var service = services.Where(x => x.Port == _serviceData._uri.Port).SingleOrDefault();
+                ServiceInformation service = null;
 
-                if (service == null)
+                var services = await _clusterProvider.FindServiceInstancesAsync(_serviceData.serviceName);
+
+                var serviceList = services.Where(x => x.Port == _serviceData._uri.Port).ToList();
+
+                if (serviceList.Count == 1)
+                {
+                    service = services.SingleOrDefault(x => x.Port == _serviceData._uri.Port);
+                }
+                else
+                {
+                    for (int i = 0; i < serviceList.Count; i++)
+                    {
+                        if (i > 0)
+                        {
+                            var serviceId = serviceList[i].Id;
+                            await _clusterProvider.DeRegisterServiceAsync(serviceId);
+                        }
+                    }
+                }
+
+                if (service == null && services.Length == 0)
                 {
                     if (_serviceData.tags != null)
                         await _clusterProvider.RegisterServiceAsync(_serviceData.serviceName, _serviceData.serviceId, _serviceData.version, _serviceData._uri, _serviceData.tags);

@@ -19,6 +19,8 @@ namespace Megaphone.Core.ClusterProviders
         Task KvPutAsync(string key, object value);
 
         Task<T> KvGetAsync<T>(string key);
+
+        Task DeRegisterServiceAsync(string serviceId);
     }
 
     public static class ClusterProviderExtensions
@@ -28,7 +30,6 @@ namespace Megaphone.Core.ClusterProviders
             var res = await self.FindServiceInstancesAsync(serviceName).ConfigureAwait(false);
             if (res.Length == 0)
                 return null;
-            //throw new Exception("Could not find service");
 
             return res[ThreadLocalRandom.Current.Next(0, res.Length)];
         }
