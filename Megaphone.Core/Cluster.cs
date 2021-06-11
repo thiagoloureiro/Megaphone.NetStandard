@@ -13,6 +13,12 @@ namespace Megaphone.Core
         private static Uri _uri;
         private static ServiceData _serviceData;
 
+        public static void BootstrapProviders(IFrameworkProvider frameworkProvider, IClusterProvider clusterProvider)
+        {
+            _clusterProvider = clusterProvider;
+            _frameworkProvider = frameworkProvider;
+        }
+
         public static async Task<ServiceInformation[]> FindServiceInstancesAsync(string name)
         {
             return await _clusterProvider.FindServiceInstancesAsync(name);
