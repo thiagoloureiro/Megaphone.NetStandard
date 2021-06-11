@@ -1,31 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/thiagoloureiro/Megaphone.NetStandard/master/megaphone-new.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</RepositoryUrl>
-    <RepositoryType>GitHub</RepositoryType>
-    <PackageTags>microservices dotnetcore consul</PackageTags>
-    <PackageReleaseNotes>v2.11 Self Register implementation improvements</PackageReleaseNotes>
-    <AssemblyVersion>2.11.0.0</AssemblyVersion>
-    <FileVersion>2.11.0.0</FileVersion>
-    <Version>2.11.0</Version>
-    <PackageId>Megaphone.DotnetCore.WebApi</PackageId>
-    <Authors>Thiago Loureiro</Authors>
-    <Company>Thiago Loureiro</Company>
-    <Product>Megaphone.DotnetCore.WebApi</Product>
-    <Description>Microservice framework with powerful service discovery using Consul - WebAPI Support Module</Description>
-    <Copyright>2021 Thiago Loureiro</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</PackageProjectUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/thiagoloureiro/Megaphone.NetStandard/master/megaphone-new.png</PackageIconUrl>
+		<RepositoryUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</RepositoryUrl>
+		<RepositoryType>GitHub</RepositoryType>
+		<PackageTags>microservices dotnetcore consul</PackageTags>
+		<PackageReleaseNotes>v2.12 Self Register implementation improvements</PackageReleaseNotes>
+		<AssemblyVersion>2.12.0.0</AssemblyVersion>
+		<FileVersion>2.12.0.0</FileVersion>
+		<Version>2.12.0</Version>
+		<PackageId>Megaphone.DotnetCore.WebApi</PackageId>
+		<Authors>Thiago Loureiro</Authors>
+		<Company>Thiago Loureiro</Company>
+		<Product>Megaphone.DotnetCore.WebApi</Product>
+		<Description>Microservice framework with powerful service discovery using Consul - WebAPI Support Module</Description>
+		<Copyright>2021 Thiago Loureiro</Copyright>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Megaphone.Core\Megaphone.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Megaphone.Core\Megaphone.Core.csproj" />
+	</ItemGroup>
 </Project>
