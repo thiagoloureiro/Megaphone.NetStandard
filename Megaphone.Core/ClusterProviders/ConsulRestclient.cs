@@ -119,12 +119,12 @@ namespace Megaphone.Core.ClusterProviders
 
                 if (res.StatusCode != HttpStatusCode.OK)
                 {
-                    throw new Exception("Could not register service");
+                    throw new Exception($"Could not register service, StatusCode: {res.StatusCode}, Content: {res.Content.ReadAsStringAsync()}");
                 }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                throw new Exception("Could not register service, consul server not found");
+                throw new Exception($"Could not register service, consul server not found, Address: {address.Host}, Port: {address.Port}, Exception details: {err.Message}");
             }
         }
 

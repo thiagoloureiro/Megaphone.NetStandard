@@ -8,10 +8,10 @@
 		<RepositoryUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</RepositoryUrl>
 		<RepositoryType>GitHub</RepositoryType>
 		<PackageTags>microservices dotnetcore consul</PackageTags>
-		<PackageReleaseNotes>v2.14 Self Register implementation improvements</PackageReleaseNotes>
-		<AssemblyVersion>2.14.0.0</AssemblyVersion>
-		<FileVersion>2.14.0.0</FileVersion>
-		<Version>2.14.0</Version>
+		<PackageReleaseNotes>v2.15 Self Register implementation improvements</PackageReleaseNotes>
+		<AssemblyVersion>2.15.0.0</AssemblyVersion>
+		<FileVersion>2.15.0.0</FileVersion>
+		<Version>2.15.0</Version>
 		<PackageId>Megaphone.DotnetCore.WebApi</PackageId>
 		<Authors>Thiago Loureiro</Authors>
 		<Company>Thiago Loureiro</Company>
