@@ -60,6 +60,8 @@ namespace Megaphone.Core.ClusterProviders
         {
             try
             {
+                Console.WriteLine("Call Consul");
+
                 var payload = new
                 {
                     ID = serviceId,
@@ -80,6 +82,7 @@ namespace Megaphone.Core.ClusterProviders
                 var content = new StringContent(json);
 
                 var res = await _httpClient.PutAsync($"http://{_consulHost}:{_consulPort}/v1/agent/service/register", content).ConfigureAwait(false);
+                Console.WriteLine(res.StatusCode);
 
                 if (res.StatusCode != HttpStatusCode.OK)
                 {

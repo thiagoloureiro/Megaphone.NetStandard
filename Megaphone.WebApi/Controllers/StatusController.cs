@@ -7,6 +7,7 @@ namespace Megaphone.WebApi.Controllers
     [ApiController]
     public class StatusController : ControllerBase
     {
+        [HttpGet]
         public string GetStatus()
         {
             Logger.Information("OK");

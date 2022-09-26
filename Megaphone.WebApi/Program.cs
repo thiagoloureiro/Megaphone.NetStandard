@@ -13,7 +13,8 @@ namespace Megaphone.WebApi
             // Host and Port are optional, if not defined they will get automatically (dynamic)
             //var uri = Cluster.Bootstrap(new WebApiProvider(), new ConsulProvider(), "values", "v1", tags: new[] { "provider", "providers", "providers2" }, host: "localhost", port: 443, useHttps: true);
 
-            var uri = Cluster.Bootstrap(new WebApiProvider(), new ConsulProvider(), "values", "v1", tags: new[] { "provider", "providers", "providers2" }, useHttps: false, selfRegisterTimer: true, selfRegisterTimerInterval: 10000);
+            Console.WriteLine("Starting");
+            var uri = Cluster.Bootstrap(new WebApiProvider(), new ConsulProvider(), "values", "v1", tags: new[] { "provider", "providers", "providers2" }, host: "localhost", port: 5001, useHttps: false, selfRegisterTimer: true, selfRegisterTimerInterval: 10000);
             CreateWebHostBuilder(args, uri).Build().Run();
         }
 

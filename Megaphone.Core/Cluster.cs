@@ -65,6 +65,7 @@ namespace Megaphone.Core
 
             try
             {
+                Console.WriteLine("Starting Try");
                 _frameworkProvider = frameworkProvider;
 
                 if (host == null && port == null)
