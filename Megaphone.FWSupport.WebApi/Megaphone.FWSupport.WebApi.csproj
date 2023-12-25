@@ -3,25 +3,37 @@
 	<PropertyGroup>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</PackageProjectUrl>
-		<PackageIconUrl>https://raw.githubusercontent.com/thiagoloureiro/Megaphone.NetStandard/master/megaphone-new.png</PackageIconUrl>
 		<RepositoryUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</RepositoryUrl>
 		<RepositoryType>GitHub</RepositoryType>
 		<PackageTags>microservices dotnetcore consul</PackageTags>
-		<PackageReleaseNotes>v2.15 Self Register implementation improvements</PackageReleaseNotes>
-		<AssemblyVersion>2.15.0.0</AssemblyVersion>
-		<FileVersion>2.15.0.0</FileVersion>
-		<Version>2.15.0</Version>
+		<PackageReleaseNotes>v3.0.4 Packages and Libraries Upgrade</PackageReleaseNotes>
+		<AssemblyVersion>3.0.4.0</AssemblyVersion>
+		<FileVersion>3.0.4.0</FileVersion>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Version>3.0.4</Version>
+		<Icon>https://raw.githubusercontent.com/thiagoloureiro/Megaphone.NetStandard/master/megaphone-new.png</Icon>
 		<PackageId>Megaphone.DotnetCore.WebApi</PackageId>
 		<Authors>Thiago Loureiro</Authors>
 		<Company>Thiago Loureiro</Company>
 		<Product>Megaphone.DotnetCore.WebApi</Product>
 		<Description>Microservice framework with powerful service discovery using Consul - WebAPI Support Module</Description>
-		<Copyright>2021 Thiago Loureiro</Copyright>
+		<Copyright>2024 Thiago Loureiro</Copyright>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+		<PackageIcon>megaphone-new.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Megaphone.Core\Megaphone.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\"/>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+		<None Include="megaphone-new.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 </Project>

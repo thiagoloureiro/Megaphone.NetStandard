@@ -2,23 +2,24 @@
 
 	<PropertyGroup>
 		<Authors>Thiago Loureiro</Authors>
-		<Version>3.0.1</Version>
+		<Version>3.0.4</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>Microservice framework with powerful service discovery using Consul</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</PackageProjectUrl>
-		<Icon>https://raw.githubusercontent.com/thiagoloureiro/EasyMemoryCache/master/cacheicon.png</Icon>
+		<Icon>https://raw.githubusercontent.com/thiagoloureiro/Megaphone.NetStandard/master/megaphone-new.png</Icon>
 		<RepositoryUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</RepositoryUrl>
 		<PackageTags>microservices dotnetcore consul</PackageTags>
 		<PackageId>Megaphone.DotnetCore</PackageId>
 		<Product>Megaphone.DotnetCore</Product>
 		<RepositoryType>GitHub</RepositoryType>
 		<Copyright>2024© Thiago Loureiro</Copyright>
-		<PackageReleaseNotes>v3.0.1 Version Update + Packages fixed</PackageReleaseNotes>
-		<AssemblyVersion>3.0.1.0</AssemblyVersion>
-		<FileVersion>3.0.1.0</FileVersion>
+		<PackageReleaseNotes>v3.0.4 Version Update + Packages fixed</PackageReleaseNotes>
+		<AssemblyVersion>3.0.4.0</AssemblyVersion>
+		<FileVersion>3.0.4.0</FileVersion>
 		<TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>megaphone-new.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -35,6 +36,6 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
-
+		<None Include="megaphone-new.png" Pack="true" PackagePath="" />
 	</ItemGroup>
 </Project>

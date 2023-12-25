@@ -2,7 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<Version>2.13.0</Version>
+		<Version>3.0.4</Version>
+		<PackageIcon>megaphone-new.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
