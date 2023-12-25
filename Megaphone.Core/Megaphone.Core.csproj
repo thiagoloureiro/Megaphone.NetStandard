@@ -1,30 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
 		<Authors>Thiago Loureiro</Authors>
-		<Version>2.15.0</Version>
+		<Version>3.0.0</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>Microservice framework with powerful service discovery using Consul</Description>
-		<PackageLicenseUrl></PackageLicenseUrl>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageProjectUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</PackageProjectUrl>
-		<PackageIconUrl>https://raw.githubusercontent.com/thiagoloureiro/Megaphone.NetStandard/master/megaphone-new.png</PackageIconUrl>
+		<Icon>https://raw.githubusercontent.com/thiagoloureiro/EasyMemoryCache/master/cacheicon.png</Icon>
 		<RepositoryUrl>https://github.com/thiagoloureiro/Megaphone.NetStandard</RepositoryUrl>
 		<PackageTags>microservices dotnetcore consul</PackageTags>
 		<PackageId>Megaphone.DotnetCore</PackageId>
 		<Product>Megaphone.DotnetCore</Product>
 		<RepositoryType>GitHub</RepositoryType>
-		<Copyright>2021© Thiago Loureiro</Copyright>
-		<PackageReleaseNotes>v2.15 Self Register implementation improvements</PackageReleaseNotes>
-		<AssemblyVersion>2.15.0.0</AssemblyVersion>
-		<FileVersion>2.15.0.0</FileVersion>
+		<Copyright>2024© Thiago Loureiro</Copyright>
+		<PackageReleaseNotes>v3.0 Version Update + Packages fixed</PackageReleaseNotes>
+		<AssemblyVersion>3.0.0.0</AssemblyVersion>
+		<FileVersion>3.0.0.0</FileVersion>
+		<TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0</TargetFrameworks>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-		<PackageReference Include="Serilog" Version="2.12.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Serilog" Version="3.1.1" />
 		<PackageReference Include="Serilog.Sinks.ColoredConsole" Version="3.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\"/>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+
 	</ItemGroup>
 </Project>
