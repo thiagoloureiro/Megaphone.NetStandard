@@ -60,15 +60,13 @@ namespace Megaphone.Core.ClusterProviders
         {
             try
             {
-                Console.WriteLine("Call Consul");
-
                 var payload = new
                 {
                     ID = serviceId,
                     Name = serviceName,
                     Tags = tags,
                     Address = address.Host,
-                    Port = address.Port,
+                    address.Port,
                     Check = new
                     {
                         HTTP = address.OriginalString + "/" + _consulStatus,

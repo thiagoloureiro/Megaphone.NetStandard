@@ -6,7 +6,7 @@ namespace Megaphone.Core
         {
             Address = serviceAddress;
             Port = servicePort;
-            Tags = Tags;
+            Tags = tags;
             Id = id;
         }
 

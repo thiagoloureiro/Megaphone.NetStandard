@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Megaphone.Core.Util
 {
-    public class JsonResponseConsul
+    public static class JsonResponseConsul
     {
         public static ServiceInformationExtended GetJsonStructure(string body)
         {

@@ -13,10 +13,10 @@ namespace Megaphone.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
-            var service = Cluster.FindServiceInstanceAsync("values").Result;
-            var service2 = await Cluster.FindServiceByTagAsync(new[] { "provider" });
+            _ = Cluster.FindServiceInstanceAsync("values").Result;
+            await Cluster.FindServiceByTagAsync(new[] { "provider" });
 
-            return new string[] { "value1", "value2" };
+            return new[] { "value1", "value2" };
         }
 
         // GET api/values/5
@@ -28,20 +28,23 @@ namespace Megaphone.WebApi.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<string> Post([FromBody] string value)
         {
+            return value;
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<string> Put(int id, [FromBody] string value)
         {
+            return value;
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<int> Delete(int id)
         {
+            return id;
         }
     }
 }

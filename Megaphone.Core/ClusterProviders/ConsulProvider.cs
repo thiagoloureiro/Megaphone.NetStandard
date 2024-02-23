@@ -20,7 +20,8 @@ namespace Megaphone.Core.ClusterProviders
             await new ConsulRestClient().RegisterServiceAsync(serviceName, serviceId, uri).ConfigureAwait(false);
         }
 
-        public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri, string[] tags)
+        public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri,
+            string[] tags)
         {
             await new ConsulRestClient().RegisterServiceAsync(serviceName, serviceId, uri, tags).ConfigureAwait(false);
         }
@@ -42,7 +43,7 @@ namespace Megaphone.Core.ClusterProviders
 
         public async Task<T> KvGetAsync<T>(string key)
         {
-            return await new ConsulRestClient().KvGetAsync<T>(key).ConfigureAwait(false); ;
+            return await new ConsulRestClient().KvGetAsync<T>(key).ConfigureAwait(false);
         }
     }
 }
