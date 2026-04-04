@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Authors>Thiago Loureiro</Authors>
-		<Version>3.0.4</Version>
+		<Version>3.0.5</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Description>Microservice framework with powerful service discovery using Consul</Description>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -13,10 +13,10 @@
 		<PackageId>Megaphone.DotnetCore</PackageId>
 		<Product>Megaphone.DotnetCore</Product>
 		<RepositoryType>GitHub</RepositoryType>
-		<Copyright>2024© Thiago Loureiro</Copyright>
+		<Copyright>2026© Thiago Loureiro</Copyright>
 		<PackageReleaseNotes>v3.0.4 Version Update + Packages fixed</PackageReleaseNotes>
-		<AssemblyVersion>3.0.4.0</AssemblyVersion>
-		<FileVersion>3.0.4.0</FileVersion>
+		<AssemblyVersion>3.0.5.0</AssemblyVersion>
+		<FileVersion>3.0.5.0</FileVersion>
 		<TargetFrameworks>net8.0;net10.0;net9.0</TargetFrameworks>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>megaphone-new.png</PackageIcon>

@@ -7,18 +7,18 @@
 		<RepositoryType>GitHub</RepositoryType>
 		<PackageTags>microservices dotnetcore consul</PackageTags>
 		<PackageReleaseNotes>v3.0.4 Packages and Libraries Upgrade</PackageReleaseNotes>
-		<AssemblyVersion>3.0.4.0</AssemblyVersion>
-		<FileVersion>3.0.4.0</FileVersion>
+		<AssemblyVersion>3.0.5.0</AssemblyVersion>
+		<FileVersion>3.0.5.0</FileVersion>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<Version>3.0.4</Version>
+		<Version>3.0.5</Version>
 		<Icon>https://raw.githubusercontent.com/thiagoloureiro/Megaphone.NetStandard/master/megaphone-new.png</Icon>
 		<PackageId>Megaphone.DotnetCore.WebApi</PackageId>
 		<Authors>Thiago Loureiro</Authors>
 		<Company>Thiago Loureiro</Company>
 		<Product>Megaphone.DotnetCore.WebApi</Product>
 		<Description>Microservice framework with powerful service discovery using Consul - WebAPI Support Module</Description>
-		<Copyright>2024 Thiago Loureiro</Copyright>
+		<Copyright>2026 Thiago Loureiro</Copyright>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<TargetFrameworks>net8.0;net10.0;net9.0</TargetFrameworks>
 		<PackageIcon>megaphone-new.png</PackageIcon>
